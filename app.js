@@ -26,15 +26,17 @@ const typeDefs = gql`
   }
   type Query {
     getBoardgames: [BoardGame]
-    getBoardgame(name: String!): BoardGame
+    getBoardgame(name: String!): BoardGame!
     numberBoardGames: Int
   }
   type Mutation {
-    addBoardGame(input: BoardGameInput!): BoardGame
-    deleteBoardGame(name: String!): BoardGame
+    addBoardGame(input: BoardGameInput!): BoardGame!
+    deleteBoardGame(name: String!): BoardGame!
+    addExpansion(name: String!, expansion: String!): BoardGame!
   }
 `;
 
+//resolver functions => improvement (extract to different file to impove app structure)
 //function to get the boardgames in database => will be passed into resolver
 const getBoardgames = async () => {
   let boardgames = await BoardGame.find({}).exec();
@@ -57,11 +59,16 @@ const addBoardGame = async (_, args) => {
 };
 
 const deleteBoardGame = async (_, args) => {
-  console.log(args);
   let removedBoardGame = await BoardGame.findOneAndRemove({
     name: args.name
   }).exec();
   return removedBoardGame;
+};
+
+const addExpansion = async (_, args) => {
+  let boardGame = await BoardGame.findOne({ name: args.name }).exec();
+  boardGame.expansions.push(args.expansion);
+  return boardGame;
 };
 
 const resolvers = {
@@ -72,7 +79,8 @@ const resolvers = {
   },
   Mutation: {
     addBoardGame,
-    deleteBoardGame
+    deleteBoardGame,
+    addExpansion
   }
 };
 
