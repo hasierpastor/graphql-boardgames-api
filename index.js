@@ -1,9 +1,10 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+require('./config');
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
+const schema = gql`
   type Query {
     hello: String
   }
@@ -18,7 +19,7 @@ const resolvers = {
 // In the most basic sense, the ApolloServer can be started
 // by passing type definitions (typeDefs) and the resolvers
 // responsible for fetching the data for those types.
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ schema, resolvers });
 const app = express();
 server.applyMiddleware({ app });
 
