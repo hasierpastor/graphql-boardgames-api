@@ -33,12 +33,12 @@ const typeDefs = gql`
     category: String
   }
   type Query {
-    getBoardgames: [BoardGame]
+    allBoardgames: [BoardGame]
     getBoardgame(name: String!): BoardGame!
-    numberBoardGames: Int
+    totalBoardGames: Int
   }
   type Mutation {
-    addBoardGame(input: BoardGameInput!): BoardGame!
+    newBoardGame(input: BoardGameInput!): BoardGame!
     deleteBoardGame(name: String!): BoardGame!
     updateBoardGame(name: String!, input: UpdateBoardGameInput!): BoardGame!
     addExpansion(name: String!, expansion: String!): BoardGame!
@@ -48,7 +48,7 @@ const typeDefs = gql`
 /************ RESOLVER FUNCTIONS ************/
 
 //resolver to get the board games in database => will be passed into resolver
-const getBoardgames = async () => {
+const allBoardgames = async () => {
   let boardgames = await BoardGame.find({}).exec();
   return boardgames;
 };
@@ -60,13 +60,13 @@ const getBoardgame = async (_, args) => {
 };
 
 //resolver to get number of board games
-const numberBoardGames = async () => {
+const totalBoardGames = async () => {
   let count = await BoardGame.count({});
   return count;
 };
 
 //resolver to add a board game to your collection
-const addBoardGame = async (_, args) => {
+const newBoardGame = async (_, args) => {
   let newBoardGame = await BoardGame.create({ ...args.input });
   return newBoardGame;
 };
@@ -98,12 +98,12 @@ const addExpansion = async (_, args) => {
 
 const resolvers = {
   Query: {
-    getBoardgames,
+    allBoardgames,
     getBoardgame,
-    numberBoardGames
+    totalBoardGames
   },
   Mutation: {
-    addBoardGame,
+    newBoardGame,
     deleteBoardGame,
     updateBoardGame,
     addExpansion
