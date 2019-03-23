@@ -31,17 +31,9 @@ const typeDefs = gql`
   }
   type Mutation {
     addBoardGame(input: BoardGameInput!): BoardGame
+    deleteBoardGame(name: String!): BoardGame
   }
 `;
-
-// const scythe = BoardGame.create({
-//   name: 'Scythe',
-//   designer: 'Jamey Stegmaier',
-//   publisher: 'Stonemaier Games',
-//   rating: 8,
-//   weight: 3.37,
-//   category: 'engine builder'
-// });
 
 //function to get the boardgames in database => will be passed into resolver
 const getBoardgames = async () => {
@@ -64,6 +56,14 @@ const addBoardGame = async (_, args) => {
   return newBoardGame;
 };
 
+const deleteBoardGame = async (_, args) => {
+  console.log(args);
+  let removedBoardGame = await BoardGame.findOneAndRemove({
+    name: args.name
+  }).exec();
+  return removedBoardGame;
+};
+
 const resolvers = {
   Query: {
     getBoardgames,
@@ -71,7 +71,8 @@ const resolvers = {
     numberBoardGames
   },
   Mutation: {
-    addBoardGame
+    addBoardGame,
+    deleteBoardGame
   }
 };
 
