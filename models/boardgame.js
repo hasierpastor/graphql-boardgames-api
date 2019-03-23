@@ -13,7 +13,8 @@ const boardgameSchema = new mongoose.Schema({
   rating: Number,
   weight: Number,
   category: String,
-  description: String
+  description: String,
+  expansions: [String]
 });
 
 /* 
