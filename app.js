@@ -17,12 +17,8 @@ const typeDefs = gql`
   }
   type Query {
     getBoardgames: [BoardGame]
-    getBoardgame: BoardGame
+    getBoardgame(name: String!): BoardGame
     numberBoardGames: Int
-  }
-  type Mutation {
-    addBoardGame(boardgame: BoardGame!): BoardGame
-    deleteBoardGame(name: String!): BoardGame
   }
 `;
 
@@ -35,9 +31,27 @@ const typeDefs = gql`
 //   category: 'engine builder'
 // });
 
+//function to get the boardgames in database => will be passed into resolver
+const getBoardgames = async () => {
+  let boardgames = await BoardGame.find({}).exec();
+  return boardgames;
+};
+
+const getBoardgame = async (_, args) => {
+  let boardgame = await BoardGame.findOne({ name: args.name }).exec();
+  return boardgame;
+};
+
+const numberBoardGames = async () => {
+  let count = await BoardGame.count({});
+  return count;
+};
+
 const resolvers = {
   Query: {
-    hello: () => 'Hello World!'
+    getBoardgames,
+    getBoardgame,
+    numberBoardGames
   }
 };
 
