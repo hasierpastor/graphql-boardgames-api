@@ -4,9 +4,7 @@ mongoose.Promise = global.Promise;
 
 // connect to the DB
 mongoose
-  .connect('mongodb://localhost:27017/boardgame_gql_db', {
-    useMongoClient: true // this option is necessary for Mongoose 4.11 and up
-  })
+  .connect('mongodb://localhost:27017/boardgame_gql_db')
   .then(() => {
     // once connected, give a success message
     console.log('Connected to MongoDB');
