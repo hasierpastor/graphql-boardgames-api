@@ -45,28 +45,33 @@ const typeDefs = gql`
   }
 `;
 
-//resolver functions => improvement (extract to different file to impove app structure)
-//function to get the boardgames in database => will be passed into resolver
+/************ RESOLVER FUNCTIONS ************/
+
+//resolver to get the board games in database => will be passed into resolver
 const getBoardgames = async () => {
   let boardgames = await BoardGame.find({}).exec();
   return boardgames;
 };
 
+//resolver to get a specific board game => search by name
 const getBoardgame = async (_, args) => {
   let boardgame = await BoardGame.findOne({ name: args.name }).exec();
   return boardgame;
 };
 
+//resolver to get number of board games
 const numberBoardGames = async () => {
   let count = await BoardGame.count({});
   return count;
 };
 
+//resolver to add a board game to your collection
 const addBoardGame = async (_, args) => {
   let newBoardGame = await BoardGame.create({ ...args.input });
   return newBoardGame;
 };
 
+//resolver to remove a board game from your collection
 const deleteBoardGame = async (_, args) => {
   let removedBoardGame = await BoardGame.findOneAndRemove({
     name: args.name
@@ -74,6 +79,7 @@ const deleteBoardGame = async (_, args) => {
   return removedBoardGame;
 };
 
+//resolver to update information about a board game
 const updateBoardGame = async (_, args) => {
   let query = { name: args.name };
   let update = { ...args.input };
@@ -81,6 +87,7 @@ const updateBoardGame = async (_, args) => {
   return boardGame;
 };
 
+//resolver to add and expansion to a specific board game
 const addExpansion = async (_, args) => {
   let boardGame = await BoardGame.findOneAndUpdate(
     { name: args.name },
