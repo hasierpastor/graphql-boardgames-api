@@ -24,6 +24,14 @@ const typeDefs = gql`
     category: String
     expansions: [String!]
   }
+  input UpdateBoardGameInput {
+    name: String
+    designer: String
+    publisher: String
+    rating: Float
+    weight: Float
+    category: String
+  }
   type Query {
     getBoardgames: [BoardGame]
     getBoardgame(name: String!): BoardGame!
@@ -32,6 +40,7 @@ const typeDefs = gql`
   type Mutation {
     addBoardGame(input: BoardGameInput!): BoardGame!
     deleteBoardGame(name: String!): BoardGame!
+    updateBoardGame(name: String!, input: UpdateBoardGameInput!): BoardGame!
     addExpansion(name: String!, expansion: String!): BoardGame!
   }
 `;
@@ -65,9 +74,18 @@ const deleteBoardGame = async (_, args) => {
   return removedBoardGame;
 };
 
+const updateBoardGame = async (_, args) => {
+  let query = { name: args.name };
+  let update = { ...args.input };
+  let boardGame = await BoardGame.findOneAndUpdate(query, update).exec();
+  return boardGame;
+};
+
 const addExpansion = async (_, args) => {
-  let boardGame = await BoardGame.findOne({ name: args.name }).exec();
-  boardGame.expansions.push(args.expansion);
+  let boardGame = await BoardGame.findOneAndUpdate(
+    { name: args.name },
+    { $push: { expansions: args.expansion } }
+  ).exec();
   return boardGame;
 };
 
@@ -80,6 +98,7 @@ const resolvers = {
   Mutation: {
     addBoardGame,
     deleteBoardGame,
+    updateBoardGame,
     addExpansion
   }
 };
