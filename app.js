@@ -15,10 +15,22 @@ const typeDefs = gql`
     category: String
     expansions: [String!]
   }
+  input BoardGameInput {
+    name: String!
+    designer: String!
+    publisher: String
+    rating: Float
+    weight: Float
+    category: String
+    expansions: [String!]
+  }
   type Query {
     getBoardgames: [BoardGame]
     getBoardgame(name: String!): BoardGame
     numberBoardGames: Int
+  }
+  type Mutation {
+    addBoardGame(input: BoardGameInput!): BoardGame
   }
 `;
 
@@ -47,11 +59,19 @@ const numberBoardGames = async () => {
   return count;
 };
 
+const addBoardGame = async (_, args) => {
+  let newBoardGame = await BoardGame.create({ ...args.input });
+  return newBoardGame;
+};
+
 const resolvers = {
   Query: {
     getBoardgames,
     getBoardgame,
     numberBoardGames
+  },
+  Mutation: {
+    addBoardGame
   }
 };
 
