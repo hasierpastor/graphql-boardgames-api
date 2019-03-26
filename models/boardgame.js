@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Schema for database
+//Schema for database => boardgame
 const boardgameSchema = new mongoose.Schema({
   name: {
     type: String,
