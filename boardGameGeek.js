@@ -11,7 +11,7 @@ async function searchBoardGame() {
   let id = boardGames.items.item[0]._attributes.id;
   let boardGameInput = await getBoardGameDetails(id);
   let input = constructBoardGameInput(boardGameInput);
-  console.log(input);
+  return input;
 }
 
 async function getBoardGameDetails(id) {
