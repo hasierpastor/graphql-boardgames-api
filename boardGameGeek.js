@@ -55,6 +55,7 @@ function searchArray(search, arr) {
       return val._attributes.value;
     }
   }
+  //if search parameter not found, add this field to board game details
   return `${search} not available for this board game`;
 }
 
