@@ -2,6 +2,9 @@ const axios = require('axios');
 const baseUrl = 'https://www.boardgamegeek.com/xmlapi2';
 const convert = require('xml-js');
 
+//function that searches for a board game => will make a call to board game geek api to search for that board game
+//will get id and pass it into getBoardGameDetails which will then be passed into the constructBoardGame function
+//return input that will be sent to GraphQL so that users can add a new board game to their collection (by searching board game geek)
 async function searchBoardGame() {
   let params = {
     query: 'scythe'
@@ -14,6 +17,8 @@ async function searchBoardGame() {
   return input;
 }
 
+//function that takes in boardgame id and makes a call to the board game geek api
+//function parses xml and returns the board game details
 async function getBoardGameDetails(id) {
   let params = {
     id
@@ -26,6 +31,8 @@ async function getBoardGameDetails(id) {
   return result;
 }
 
+//function that takes in some parsed board game details and returns a clear, structured object containing certain info
+//this object will be used as an input when users want to add board games to their collections
 function constructBoardGameInput(boardGame) {
   let input = {};
   let category = searchArray('boardgamecategory', boardGame.items.item.link);
@@ -39,6 +46,9 @@ function constructBoardGameInput(boardGame) {
   return input;
 }
 
+//function that searches for certain info in the nested parsed xml
+//will be used to add category, designer and publisher to board game input
+//flexible so can add more parameters later => returns first match which should be fine
 function searchArray(search, arr) {
   for (let val of arr) {
     if (val._attributes.type === search) {
