@@ -17,7 +17,7 @@ async function searchBoardGame() {
   return input;
 }
 
-//function that takes in boardgame id and makes a call to the board game geek api
+//function that takes in board game id and makes a call to the board game geek api
 //function parses xml and returns the board game details
 async function getBoardGameDetails(id) {
   let params = {
