@@ -48,31 +48,34 @@ const typeDefs = gql`
 /************ RESOLVER FUNCTIONS ************/
 
 //resolver to get the board games in database => will be passed into resolver
-const allBoardgames = async function allBoardgames() => {
+
+//added repetitive names to functions so that they would appear in stack trace (easier to debug)
+
+const allBoardgames = async function allBoardgames() {
   let boardgames = await BoardGame.find({}).exec();
   return boardgames;
 };
 
 //resolver to get a specific board game => search by name
-const getBoardgame = async function getBoardgame(_, args) => {
+const getBoardgame = async function getBoardgame(_, args) {
   let boardgame = await BoardGame.findOne({ name: args.name }).exec();
   return boardgame;
 };
 
 //resolver to get number of board games
-const totalBoardGames = async function totalBoardGames() => {
+const totalBoardGames = async function totalBoardGames() {
   let count = await BoardGame.count({});
   return count;
 };
 
 //resolver to add a board game to your collection
-const newBoardGame = async function newBoardGame(_, args) => {
+const newBoardGame = async function newBoardGame(_, args) {
   let newBoardGame = await BoardGame.create({ ...args.input });
   return newBoardGame;
 };
 
 //resolver to remove a board game from your collection
-const deleteBoardGame = async function deleteBoardGame(_, args) => {
+const deleteBoardGame = async function deleteBoardGame(_, args) {
   let removedBoardGame = await BoardGame.findOneAndRemove({
     name: args.name
   }).exec();
@@ -80,7 +83,7 @@ const deleteBoardGame = async function deleteBoardGame(_, args) => {
 };
 
 //resolver to update information about a board game
-const updateBoardGame = async function updateBoardGame(_, args) => {
+const updateBoardGame = async function updateBoardGame(_, args) {
   let query = { name: args.name };
   let update = { ...args.input };
   let boardGame = await BoardGame.findOneAndUpdate(query, update).exec();
@@ -88,7 +91,7 @@ const updateBoardGame = async function updateBoardGame(_, args) => {
 };
 
 //resolver to add and expansion to a specific board game
-const addExpansion = async function addExpansion(_, args) => {
+const addExpansion = async function addExpansion(_, args) {
   let boardGame = await BoardGame.findOneAndUpdate(
     { name: args.name },
     { $push: { expansions: args.expansion } }
