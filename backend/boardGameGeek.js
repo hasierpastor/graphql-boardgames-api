@@ -2,12 +2,14 @@ const axios = require('axios');
 const convert = require('xml-js');
 const baseUrl = 'https://www.boardgamegeek.com/xmlapi2';
 
+//TODO: Add image to board game input
+
 //function that searches for a board game => will make a call to board game geek api to search for that board game
 //will get id and pass it into getBoardGameDetails which will then be passed into the constructBoardGame function
 //return input that will be sent to GraphQL so that users can add a new board game to their collection (by searching board game geek)
-async function searchBoardGame() {
+async function searchBoardGame(name) {
   let params = {
-    query: 'scythe'
+    query: name
   };
   let result = await axios.get(`${baseUrl}/search`, { params });
   let boardGames = convert.xml2js(result.data, { compact: true, spaces: 4 });
