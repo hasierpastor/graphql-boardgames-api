@@ -49,7 +49,8 @@ const typeDefs = gql`
 
 //resolver to get the board games in database => will be passed into resolver
 
-//added repetitive names to functions so that they would appear in stack trace (easier to debug)
+//added names to functions so that they would appear in stack trace (easier to debug)
+//also provide function self-reference and self-documenting code
 
 const allBoardgames = async function allBoardgames() {
   let boardgames = await BoardGame.find({}).exec();

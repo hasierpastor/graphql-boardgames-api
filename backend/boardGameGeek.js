@@ -2,7 +2,7 @@ const axios = require('axios');
 const convert = require('xml-js');
 const baseUrl = 'https://www.boardgamegeek.com/xmlapi2';
 
-//TODO: Add image to board game input
+//TODO: Add image, rating to board game input
 
 //function that searches for a board game => will make a call to board game geek api to search for that board game
 //will get id and pass it into getBoardGameDetails which will then be passed into the constructBoardGame function
