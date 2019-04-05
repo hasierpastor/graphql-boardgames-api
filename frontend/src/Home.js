@@ -1,7 +1,10 @@
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import React from 'react';
+import Figure from 'react-bootstrap/Figure';
+import FigureCaption from 'react-bootstrap/FigureCaption';
 
+//TODO: Change styling, add overlay
 const Home = () => (
   <Query
     query={gql`
@@ -18,18 +21,29 @@ const Home = () => (
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-      return data.allBoardgames.map(
+      const boardGames = data.allBoardgames.map(
         ({ name, designer, image, rating }, index) => (
-          console.log(image),
-          (
-            <div key={index}>
-              <p>Name: {name}</p>
-              <p>Designer: {designer}</p>
-              <p>Rating: {rating}</p>
-              <img src={image} />
-            </div>
-          )
+          <div className="website grid mix col-md-4 col-sm-6 col-xs-12">
+            <Figure className="port-desc">
+              <img src={image} className="img-responsive" alt="Work 1" />
+              <FigureCaption>
+                <h4>{name}</h4>
+                <h5>{designer}</h5>
+                <h5>{rating}</h5>
+              </FigureCaption>
+            </Figure>
+          </div>
         )
+      );
+      return (
+        <div className="container">
+          <div className="row">
+            <div data-aos="fade-up" />
+            <div id="port-image" className="container">
+              <div className="row">{boardGames}</div>
+            </div>
+          </div>
+        </div>
       );
     }}
   </Query>
