@@ -2,20 +2,20 @@ const axios = require('axios');
 const convert = require('xml-js');
 const baseUrl = 'https://www.boardgamegeek.com/xmlapi2';
 
-//TODO: Add image, rating to board game input
-
 //function that searches for a board game => will make a call to board game geek api to search for that board game
 //will get id and pass it into getBoardGameDetails which will then be passed into the constructBoardGame function
 //return input that will be sent to GraphQL so that users can add a new board game to their collection (by searching board game geek)
 async function searchBoardGame(name) {
   let params = {
-    query: name
+    query: 'brass'
   };
   let result = await axios.get(`${baseUrl}/search`, { params });
   let boardGames = convert.xml2js(result.data, { compact: true, spaces: 4 });
   let id = boardGames.items.item[0]._attributes.id;
   let boardGameInput = await getBoardGameDetails(id);
+  console.log(boardGameInput.items.item.name);
   let input = constructBoardGameInput(boardGameInput);
+  console.log(input);
   return input;
 }
 
@@ -40,7 +40,12 @@ function constructBoardGameInput(boardGame) {
   let category = searchArray('boardgamecategory', boardGame.items.item.link);
   let designer = searchArray('boardgamedesigner', boardGame.items.item.link);
   let publisher = searchArray('boardgamepublisher', boardGame.items.item.link);
-  input.name = boardGame.items.item.name[0]._attributes.value;
+  if (Array.isArray(boardGame.items.item.name)) {
+    input.name = boardGame.items.item.name[0]._attributes.value;
+  } else {
+    input.name = boardGame.items.item.name._attributes.value;
+  }
+  input.image = boardGame.items.item.image._text;
   input.description = boardGame.items.item.description._text;
   input.category = category;
   input.designer = designer;
