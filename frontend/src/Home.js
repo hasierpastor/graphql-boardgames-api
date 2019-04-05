@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import React from 'react';
 
-const BoardGames = () => (
+const Home = () => (
   <Query
     query={gql`
       {
@@ -35,4 +35,4 @@ const BoardGames = () => (
   </Query>
 );
 
-export default BoardGames;
+export default Home;

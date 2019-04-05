@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import BoardGames from './BoardGames';
+import Home from './Home';
 
-const App = () => <BoardGames />;
+const App = () => <Home />;
 
 export default App;
