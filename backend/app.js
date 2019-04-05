@@ -8,20 +8,24 @@ require('./config');
 const typeDefs = gql`
   type BoardGame {
     name: String!
+    image: String
     designer: String!
     publisher: String
     rating: Float
     weight: Float
     category: String
+    rating: Float
     expansions: [String!]
   }
   input BoardGameInput {
     name: String!
+    image: String
     designer: String!
     publisher: String
     rating: Float
     weight: Float
     category: String
+    rating: Float
     expansions: [String!]
   }
   input UpdateBoardGameInput {

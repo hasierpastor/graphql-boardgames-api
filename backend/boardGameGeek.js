@@ -13,9 +13,7 @@ async function searchBoardGame(name) {
   let boardGames = convert.xml2js(result.data, { compact: true, spaces: 4 });
   let id = boardGames.items.item[0]._attributes.id;
   let boardGameInput = await getBoardGameDetails(id);
-  console.log(boardGameInput.items.item.name);
   let input = constructBoardGameInput(boardGameInput);
-  console.log(input);
   return input;
 }
 
