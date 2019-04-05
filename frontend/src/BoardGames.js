@@ -9,6 +9,8 @@ const BoardGames = () => (
         allBoardgames {
           name
           designer
+          rating
+          image
         }
       }
     `}
@@ -16,12 +18,19 @@ const BoardGames = () => (
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
-      return data.allBoardgames.map(({ name, designer }, index) => (
-        <div key={index}>
-          <p>Name: {name}</p>
-          <p>Designer: {designer}</p>
-        </div>
-      ));
+      return data.allBoardgames.map(
+        ({ name, designer, image, rating }, index) => (
+          console.log(image),
+          (
+            <div key={index}>
+              <p>Name: {name}</p>
+              <p>Designer: {designer}</p>
+              <p>Rating: {rating}</p>
+              <img src={image} />
+            </div>
+          )
+        )
+      );
     }}
   </Query>
 );
