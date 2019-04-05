@@ -24,26 +24,26 @@ const Home = () => (
       const boardGames = data.allBoardgames.map(
         ({ name, designer, image, rating }, index) => (
           <div className="website grid mix col-md-4 col-sm-6 col-xs-12">
-            <Figure className="port-desc">
+            <figure className="port-desc">
               <img src={image} className="img-responsive" alt="Work 1" />
-              <FigureCaption>
+              <figcaption>
                 <h4>{name}</h4>
                 <h5>{designer}</h5>
                 <h5>{rating}</h5>
-              </FigureCaption>
-            </Figure>
+              </figcaption>
+            </figure>
           </div>
         )
       );
       return (
-        <div className="container">
-          <div className="row">
-            <div data-aos="fade-up" />
-            <div id="port-image" className="container">
-              <div className="row">{boardGames}</div>
-            </div>
-          </div>
+        // <div className="container">
+        //   <div className="row">
+        //     <div data-aos="fade-up" />
+        <div id="port-image" className="container">
+          <div className="row">{boardGames}</div>
         </div>
+        //   </div>
+        // </div>
       );
     }}
   </Query>
