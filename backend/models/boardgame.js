@@ -7,6 +7,7 @@ const boardgameSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  image: String,
   designer: {
     type: String,
     required: true

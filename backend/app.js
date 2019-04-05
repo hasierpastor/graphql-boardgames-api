@@ -14,7 +14,6 @@ const typeDefs = gql`
     rating: Float
     weight: Float
     category: String
-    rating: Float
     expansions: [String!]
   }
   input BoardGameInput {
@@ -25,11 +24,11 @@ const typeDefs = gql`
     rating: Float
     weight: Float
     category: String
-    rating: Float
     expansions: [String!]
   }
   input UpdateBoardGameInput {
     name: String
+    image: String
     designer: String
     publisher: String
     rating: Float
