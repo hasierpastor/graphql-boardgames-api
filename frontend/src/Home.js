@@ -6,6 +6,7 @@ import FigureCaption from 'react-bootstrap/FigureCaption';
 
 //TODO: Change styling, add overlay
 const Home = () => (
+  //query boardgame collection from backend and display boardgames\
   <Query
     query={gql`
       {
