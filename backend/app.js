@@ -37,14 +37,14 @@ const typeDefs = gql`
   }
   type Query {
     allBoardgames: [BoardGame]
-    getBoardgame(name: String!): BoardGame!
+    getBoardgame(name: String): BoardGame!
     totalBoardGames: Int
   }
   type Mutation {
     newBoardGame(input: BoardGameInput!): BoardGame!
     deleteBoardGame(name: String!): BoardGame!
-    updateBoardGame(name: String!, input: UpdateBoardGameInput!): BoardGame!
-    addExpansion(name: String!, expansion: String!): BoardGame!
+    updateBoardGame(name: String!, input: UpdateBoardGameInput): BoardGame!
+    addExpansion(name: String, expansion: String): BoardGame!
   }
 `;
 
