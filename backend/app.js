@@ -41,10 +41,10 @@ const typeDefs = gql`
     totalBoardGames: Int
   }
   type Mutation {
-    newBoardGame(input: BoardGameInput!): BoardGame!
-    deleteBoardGame(name: String!): BoardGame!
-    updateBoardGame(name: String!, input: UpdateBoardGameInput): BoardGame!
-    addExpansion(name: String, expansion: String): BoardGame!
+    boardGameNew(input: BoardGameInput!): BoardGame!
+    boardGameDelete(name: String!): BoardGame!
+    boardGameUpdate(name: String!, input: UpdateBoardGameInput): BoardGame!
+    expansionAdd(name: String, expansion: String): BoardGame!
   }
 `;
 
@@ -110,10 +110,10 @@ const resolvers = {
     totalBoardGames
   },
   Mutation: {
-    newBoardGame,
-    deleteBoardGame,
-    updateBoardGame,
-    addExpansion
+    boardGameNew,
+    boardGameDelete,
+    boardGameUpdate,
+    expansionAdd
   }
 };
 
