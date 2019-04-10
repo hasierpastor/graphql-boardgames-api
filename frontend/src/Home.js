@@ -4,7 +4,7 @@ import React from 'react';
 import Figure from 'react-bootstrap/Figure';
 import FigureCaption from 'react-bootstrap/FigureCaption';
 
-//TODO: Change styling, add overlay
+//TODO: Change styling, add overlay, incorporate variables query
 const Home = () => (
   //query boardgame collection from backend and display boardgames\
   <Query
