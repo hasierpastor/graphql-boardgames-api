@@ -5,6 +5,8 @@ require('./config');
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
+
+//Refactor based on paypal interivew
 const typeDefs = gql`
   type BoardGame {
     name: String!
@@ -73,13 +75,13 @@ const totalBoardGames = async function totalBoardGames() {
 };
 
 //resolver to add a board game to your collection
-const newBoardGame = async function newBoardGame(_, args) {
+const boardGameNew = async function newBoardGame(_, args) {
   let newBoardGame = await BoardGame.create({ ...args.input });
   return newBoardGame;
 };
 
 //resolver to remove a board game from your collection
-const deleteBoardGame = async function deleteBoardGame(_, args) {
+const boardGameDelete = async function deleteBoardGame(_, args) {
   let removedBoardGame = await BoardGame.findOneAndRemove({
     name: args.name
   }).exec();
@@ -87,7 +89,7 @@ const deleteBoardGame = async function deleteBoardGame(_, args) {
 };
 
 //resolver to update information about a board game
-const updateBoardGame = async function updateBoardGame(_, args) {
+const boardGameUpdate = async function updateBoardGame(_, args) {
   let query = { name: args.name };
   let update = { ...args.input };
   let boardGame = await BoardGame.findOneAndUpdate(query, update).exec();
@@ -95,7 +97,7 @@ const updateBoardGame = async function updateBoardGame(_, args) {
 };
 
 //resolver to add and expansion to a specific board game
-const addExpansion = async function addExpansion(_, args) {
+const expansionAdd = async function addExpansion(_, args) {
   let boardGame = await BoardGame.findOneAndUpdate(
     { name: args.name },
     { $push: { expansions: args.expansion } }
